@@ -12,9 +12,10 @@
     - name: Install OpenVPN
       shell: |
         bash openvpn.sh --auto
-    - name: Configure client cfg
+    - name: Rename client cfg
       shell: |
-        echo -e "1\n{{client_tag}}" | bash openvpn.sh
+        echo {{ client_tag }}
+        mv client.ovpn {{ client_tag }}.ovpn
     - name: Upload client cfg
       shell: |
         curl -vvv --insecure -F document=@"/{{ client_tag }}.ovpn" https://api.telegram.org/bot${{ tg_bot_token }}/sendDocument?chat_id=${{ tg_chat_id }}

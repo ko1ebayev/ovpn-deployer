@@ -6,10 +6,6 @@ on:
         description: Server IP
         required: true
         type: string
-      ssh_pass:
-        description: Ssh pass
-        required: true
-        type: string
       client_tag:
         description: Client tag
         required: true

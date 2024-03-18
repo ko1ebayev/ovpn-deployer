@@ -5,9 +5,9 @@
   tasks:
     - name: Setup machine
       shell: |
-        apt-get update
-        apt-get upgrade
-        apt-get install wget
+        DEBIAN_FRONTEND=noninteractive apt-get update -qq
+        DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq -y
+        DEBIAN_FRONTEND=noninteractive apt-get install -qq wget -y
     - name: Download OpenVPN installer
       shell: |
         wget -O openvpn.sh https://get.vpnsetup.net/ovpn

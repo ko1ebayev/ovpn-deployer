@@ -1,2 +1,2 @@
 # ovpn-deployer
-Fast OpenVPN server deploy
+Full automated OpenVPN server deploy with uploading client config to telegram

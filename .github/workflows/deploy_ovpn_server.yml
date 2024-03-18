@@ -35,10 +35,4 @@ jobs:
           echo "ANSIBLE_CONFIG=ansible.cfg" >> $GITHUB_ENV
       - name: Run playbook
         run: |
-          ansible-playbook playbook.yml -i ${{ inputs.server_ip }}, \ 
-            -e ansible_user=root
-            -e ansible_ssh_pass=${{ secrets.SSH_PASS }} \
-            -e client_tag=${{ inputs.client_tag }} \
-            -e tg_bot_token=${{ secrets.TG_BOT_TOKEN }} \
-            -e tg_chat_id=${{ secrets.TG_CHAT_ID }} \
-            -vv
+          ansible-playbook playbook.yml -i ${{ inputs.server_ip }}, -e ansible_user=root -e ansible_ssh_pass=${{ secrets.SSH_PASS }} -e client_tag=${{ inputs.client_tag }} -e tg_bot_token=${{ secrets.TG_BOT_TOKEN }} -e tg_chat_id=${{ secrets.TG_CHAT_ID }} -vv

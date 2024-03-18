@@ -18,4 +18,4 @@
         mv client.ovpn {{ client_tag }}.ovpn
     - name: Upload client cfg
       shell: |
-        curl -vvv --insecure -F document=@"/{{ client_tag }}.ovpn" https://api.telegram.org/bot${{ tg_bot_token }}/sendDocument?chat_id=${{ tg_chat_id }}
+        curl -vvv --insecure -F "document=@{{ client_tag }}.ovpn" https://api.telegram.org/bot{{ tg_bot_token }}/sendDocument?chat_id={{ tg_chat_id }}

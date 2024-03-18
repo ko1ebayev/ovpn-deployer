@@ -14,8 +14,7 @@
         bash openvpn.sh --auto
     - name: Configure client cfg
       shell: |
-        bash openvpn.sh
-        mv client.ovpn {{ client_tag }}.ovpn
+        echo -e "1\n{{client_tag}}" | bash openvpn.sh
     - name: Upload client cfg
       shell: |
         curl -vvv --insecure -F document=@"/{{ client_tag }}.ovpn" https://api.telegram.org/bot${{ tg_bot_token }}/sendDocument?chat_id=${{ tg_chat_id }}

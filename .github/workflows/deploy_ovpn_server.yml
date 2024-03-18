@@ -12,8 +12,8 @@ on:
         type: string
 
 jobs:
-  runs-on: ubuntu-latest
   setup-runner:
+    runs-on: ubuntu-latest
     name: Setup runner
     steps:
       - uses: actions/checkout@v3
@@ -25,6 +25,7 @@ jobs:
           pip install -r runner-packages.txt
 
   deploy-ovpn:
+    runs-on: ubuntu-latest
     name: Deploy OpenVPN server
     needs: [setup-runner]
     steps:

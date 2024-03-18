@@ -3,10 +3,8 @@
   hosts: all
   become: yes
   tasks:
-    - name: Setup machine
+    - name: Install wget
       shell: |
-        DEBIAN_FRONTEND=noninteractive apt-get update -qq
-        DEBIAN_FRONTEND=noninteractive apt-get upgrade -qq -y
         DEBIAN_FRONTEND=noninteractive apt-get install -qq wget -y
     - name: Download OpenVPN installer
       shell: |

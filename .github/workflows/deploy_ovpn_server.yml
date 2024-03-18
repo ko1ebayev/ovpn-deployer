@@ -29,6 +29,7 @@ jobs:
     name: Deploy OpenVPN server
     needs: [setup-runner]
     steps:
+      - uses: actions/checkout@v3
       - name: Configure Ansible
         run: |
           echo "ANSIBLE_CONFIG=ansible.cfg" >> $GITHUB_ENV

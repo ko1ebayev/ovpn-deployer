@@ -1,0 +1,46 @@
+name: Deploy OVPN server
+on:
+  workflow_dispatch:
+    inputs:
+      server_ip:
+        description: Server IP
+        required: true
+        type: string
+      ssh_pass:
+        description: Ssh pass
+        required: true
+        type: string
+      client_tag:
+        description: Client tag
+        required: true
+        type: string
+
+jobs:
+  runs-on: ubuntu-latest
+  setup-runner:
+    name: Setup runner
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v2
+      - name: Install runner dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r runner-packages.txt
+
+  deploy-ovpn:
+    name: Deploy OpenVPN server
+    needs: [setup-runner]
+    steps:
+      - name: Configure Ansible
+        run: |
+          echo "ANSIBLE_CONFIG=ansible.cfg" >> $GITHUB_ENV
+      - name: Run playbook
+        run: |
+          ansible-playbook -i ${{ inputs.server_ip }}, playbook.yml \ 
+            -e ansible_user=root
+            -e ansible_ssh_pass=${{ secrets.SSH_PASS }} \
+            -e client_tag=${{ inputs.client_tag }} \
+            -e tg_bot_token=${{ secrets.TG_BOT_TOKEN }} \
+            -e tg_chat_id=${{ secrets.TG_CHAT_ID }} \
+            -vv

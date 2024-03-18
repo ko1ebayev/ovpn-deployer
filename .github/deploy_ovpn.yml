@@ -1,8 +1,0 @@
-deploy-ovpn:
-  name: Deploy OpenVPN server
-  runs-on: ubuntu-latest
-  steps:
-    - name: Run playbook
-      run: |
-        ansible-playbook playbook.yml --extra-vars "ansible_ssh_private_key_file=key" -v
-        

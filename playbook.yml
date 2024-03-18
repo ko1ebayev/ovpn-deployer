@@ -1,22 +1,23 @@
 ---
-- hosts: "{{ node_group }}"
+- name: Deploy OVPN server
+  hosts: all
   become: yes
-  jobs:
+  tasks:
     - name: Setup machine
-      bash: |
+      shell: |
         apt-get update
         apt-get upgrade
         apt-get install wget
     - name: Download OpenVPN installer
-      bash: |
+      shell: |
         wget -O openvpn.sh https://get.vpnsetup.net/ovpn
     - name: Install OpenVPN
-      bash: |
+      shell: |
         sudo timeout 3m bash openvpn.sh --auto
     - name: Configure client cfg
-      bash: |
+      shell: |
         sudo bash openvpn.sh
         mv client.ovpn {{ client_tag }}.ovpn
     - name: Upload client cfg
-      bash: |
-        curl -vvv --insecure -F document=@"/{{ client_tag }}.ovpn" https://api.telegram.org/bot${{ secrets.TG_BOT_TOKEN }}/sendDocument?chat_id=${{ vars.TG_CHAT_ID }}
+      shell: |
+        curl -vvv --insecure -F document=@"/{{ client_tag }}.ovpn" https://api.telegram.org/bot${{ tg_bot_token }}/sendDocument?chat_id=${{ tg_chat_id }}

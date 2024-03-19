@@ -3,14 +3,18 @@
   hosts: all
   become: yes
   tasks:
+    - name: Install wget
+      shell: |
+        DEBIAN_FRONTEND=noninteractive apt-get install -qq wget -y
     - name: Download OpenVPN installer
       shell: |
-        curl --connect-timeout 30 --retry 300 --retry-delay 3 https://get.vpnsetup.net/ovpn >> openvpn.sh
+        wget -O openvpn.sh https://get.vpnsetup.net/ovpn
     - name: Install OpenVPN
       shell: |
         bash openvpn.sh --auto
     - name: Rename client cfg
       shell: |
+        echo {{ client_tag }}
         mv client.ovpn {{ client_tag }}.ovpn
     - name: Upload client cfg
       shell: |
